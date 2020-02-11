@@ -1,0 +1,18 @@
+
+log:
+  file: STDOUT
+  level: DEBUG
+  max_age: 2160h
+  rotate: 24h
+
+http:
+  addr: :10009
+
+oss:
+  endpoints:
+    o1:
+      provider: qiniu
+      app_key: 123
+      app_secret: 123
+      bucket: res
+      zone: huadong
