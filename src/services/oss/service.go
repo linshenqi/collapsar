@@ -60,6 +60,43 @@ func (s *Service) getProvider(providerType string) (IOss, error) {
 	return provider, nil
 }
 
+func (s *Service) getEndpoint(endpoint string) (*Endpoint, error) {
+	ep, exist := s.cfg.Endpoints[endpoint]
+	if !exist {
+		return nil, errors.New("Endpoint Not Found ")
+	}
+
+	return &ep, nil
+}
+
 func (s *Service) SetupProviders(providers map[string]IOss) {
 	s.providers = providers
+}
+
+func (s *Service) Upload(endpoint string, key string, data []byte) error {
+	ep, err := s.getEndpoint(endpoint)
+	if err != nil {
+		return err
+	}
+
+	provider, err := s.getProvider(ep.Provider)
+	if err != nil {
+		return err
+	}
+
+	return provider.Upload(endpoint, key, data)
+}
+
+func (s *Service) Delete(endpoint string, key string) error {
+	ep, err := s.getEndpoint(endpoint)
+	if err != nil {
+		return err
+	}
+
+	provider, err := s.getProvider(ep.Provider)
+	if err != nil {
+		return err
+	}
+
+	return provider.Delete(endpoint, key)
 }
