@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"github.com/linshenqi/collapsar/src/services/oss"
+	"github.com/linshenqi/collapsar/src/services/base"
 	"github.com/linshenqi/sptty"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
@@ -24,7 +24,7 @@ type Client struct {
 }
 
 type Oss struct {
-	oss.BaseOss
+	base.BaseOss
 	clients map[string]Client
 }
 
@@ -42,7 +42,7 @@ func (s *Oss) Init() {
 	for name, endpoint := range s.Endpoints {
 		zone, err := s.getZone(endpoint.Zone)
 		if err != nil {
-			sptty.Log(sptty.ErrorLevel, err.Error(), oss.ServiceName)
+			sptty.Log(sptty.ErrorLevel, err.Error(), base.Qiniu)
 			continue
 		}
 

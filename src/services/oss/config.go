@@ -1,15 +1,9 @@
 package oss
 
-type Config struct {
-	Endpoints map[string]Endpoint `yaml:"endpoints"`
-}
+import "github.com/linshenqi/collapsar/src/services/base"
 
-type Endpoint struct {
-	Provider  string `yaml:"provider"`
-	AppKey    string `yaml:"app_key"`
-	AppSecret string `yaml:"app_secret"`
-	Bucket    string `yaml:"bucket"`
-	Zone      string `yaml:"zone"`
+type Config struct {
+	Endpoints map[string]base.Endpoint `yaml:"endpoints"`
 }
 
 func (s *Config) ConfigName() string {

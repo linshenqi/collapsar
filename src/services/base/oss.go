@@ -1,10 +1,20 @@
-package oss
+package base
 
-import "errors"
+import (
+	"errors"
+)
 
 const (
 	Qiniu = "qiniu"
 )
+
+type Endpoint struct {
+	Provider  string `yaml:"provider"`
+	AppKey    string `yaml:"app_key"`
+	AppSecret string `yaml:"app_secret"`
+	Bucket    string `yaml:"bucket"`
+	Zone      string `yaml:"zone"`
+}
 
 type IOss interface {
 	Init()

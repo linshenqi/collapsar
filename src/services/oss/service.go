@@ -2,6 +2,8 @@ package oss
 
 import (
 	"errors"
+	"github.com/linshenqi/collapsar/src/services/base"
+	"github.com/linshenqi/collapsar/src/services/qiniu"
 	"github.com/linshenqi/sptty"
 )
 
@@ -11,7 +13,7 @@ const (
 
 type Service struct {
 	cfg       Config
-	providers map[string]IOss
+	providers map[string]base.IOss
 }
 
 func (s *Service) Init(app sptty.Sptty) error {
@@ -19,6 +21,7 @@ func (s *Service) Init(app sptty.Sptty) error {
 		return err
 	}
 
+	s.setupProviders()
 	s.initProviders()
 
 	return nil
@@ -51,7 +54,7 @@ func (s *Service) initProviders() {
 	}
 }
 
-func (s *Service) getProvider(providerType string) (IOss, error) {
+func (s *Service) getProvider(providerType string) (base.IOss, error) {
 	provider, exist := s.providers[providerType]
 	if !exist {
 		return nil, errors.New("Provider Not Found ")
@@ -60,7 +63,7 @@ func (s *Service) getProvider(providerType string) (IOss, error) {
 	return provider, nil
 }
 
-func (s *Service) getEndpoint(endpoint string) (*Endpoint, error) {
+func (s *Service) getEndpoint(endpoint string) (*base.Endpoint, error) {
 	ep, exist := s.cfg.Endpoints[endpoint]
 	if !exist {
 		return nil, errors.New("Endpoint Not Found ")
@@ -69,8 +72,10 @@ func (s *Service) getEndpoint(endpoint string) (*Endpoint, error) {
 	return &ep, nil
 }
 
-func (s *Service) SetupProviders(providers map[string]IOss) {
-	s.providers = providers
+func (s *Service) setupProviders() {
+	s.providers = map[string]base.IOss{
+		base.Qiniu: &qiniu.Oss{},
+	}
 }
 
 func (s *Service) Upload(endpoint string, key string, data []byte) error {
