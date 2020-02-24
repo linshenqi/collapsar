@@ -29,9 +29,9 @@ github.com/jinzhu/gorm
 github.com/jinzhu/gorm/dialects/postgres
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
-# github.com/json-iterator/go v1.1.6
+# github.com/json-iterator/go v1.1.9
 github.com/json-iterator/go
-# github.com/juju/errors v0.0.0-20181118221551-089d3ea4e4d5
+# github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
 github.com/juju/errors
 # github.com/kataras/golog v0.0.10
 github.com/kataras/golog
@@ -63,22 +63,22 @@ github.com/kataras/iris/view
 # github.com/kataras/pio v0.0.2
 github.com/kataras/pio
 github.com/kataras/pio/terminal
-# github.com/klauspost/compress v1.9.0
+# github.com/klauspost/compress v1.10.1
 github.com/klauspost/compress/flate
 github.com/klauspost/compress/gzip
-# github.com/konsorten/go-windows-terminal-sequences v1.0.1
+# github.com/konsorten/go-windows-terminal-sequences v1.0.2
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/lestrrat-go/file-rotatelogs v2.3.0+incompatible
 github.com/lestrrat-go/file-rotatelogs
 github.com/lestrrat-go/file-rotatelogs/internal/option
 # github.com/lestrrat-go/strftime v1.0.1
 github.com/lestrrat-go/strftime
-# github.com/lib/pq v1.1.1
+# github.com/lib/pq v1.3.0
 github.com/lib/pq
 github.com/lib/pq/hstore
 github.com/lib/pq/oid
 github.com/lib/pq/scram
-# github.com/linshenqi/sptty v0.0.0-20200222082850-5b0b7410333e
+# github.com/linshenqi/sptty v0.0.0-20200224160645-320724fcd3e2
 github.com/linshenqi/sptty
 # github.com/microcosm-cc/bluemonday v1.0.2
 github.com/microcosm-cc/bluemonday
@@ -105,7 +105,7 @@ github.com/ryanuber/columnize
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
-# golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413
+# golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
 golang.org/x/crypto/acme
 golang.org/x/crypto/acme/autocert
 # golang.org/x/net v0.0.0-20200222125558-5a598a2470a0
@@ -114,9 +114,9 @@ golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/idna
 golang.org/x/net/publicsuffix
-# golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb
+# golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae
 golang.org/x/sys/unix
-# golang.org/x/text v0.3.0
+# golang.org/x/text v0.3.2
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
