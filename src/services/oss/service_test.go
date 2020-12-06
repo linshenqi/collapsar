@@ -3,11 +3,12 @@ package oss
 import (
 	"bytes"
 	"fmt"
+	"net/http"
+	"testing"
+
 	"github.com/linshenqi/collapsar/src/services/base"
 	"github.com/linshenqi/collapsar/src/services/qiniu"
 	"github.com/linshenqi/sptty"
-	"net/http"
-	"testing"
 )
 
 var endpoint = "ashibro"

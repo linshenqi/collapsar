@@ -6,8 +6,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/rs/xid"
 	"path"
+
+	"github.com/rs/xid"
 )
 
 type RequestError struct {
@@ -30,13 +31,13 @@ func GenerateUID() string {
 
 func Sha1(data string) string {
 	s := sha1.New()
-	s.Write([]byte(data))
+	_, _ = s.Write([]byte(data))
 	return hex.EncodeToString(s.Sum([]byte("")))
 }
 
 func Sha256(data string) string {
 	s := sha256.New()
-	s.Write([]byte(data))
+	_, _ = s.Write([]byte(data))
 	return hex.EncodeToString(s.Sum([]byte("")))
 }
 

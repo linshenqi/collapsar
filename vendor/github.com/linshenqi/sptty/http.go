@@ -1,20 +1,25 @@
 package sptty
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"time"
+
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"gopkg.in/resty.v1"
-	"time"
 )
 
 const (
-	BaseApiRoute    = "/api/v1"
+	DefaultAPITag   = "/api"
 	HttpServiceName = "http"
 )
 
 type HttpConfig struct {
-	Addr string `yaml:"addr"`
+	Addr   string `yaml:"addr"`
+	ApiDoc string `yaml:"api_doc"`
+	Tag    string `yaml:"tag"`
 }
 
 func (c *HttpConfig) ConfigName() string {
@@ -27,7 +32,8 @@ func (c *HttpConfig) Validate() error {
 
 func (c *HttpConfig) Default() interface{} {
 	return &HttpConfig{
-		Addr: "8080",
+		Addr:   "8080",
+		ApiDoc: "",
 	}
 }
 
@@ -54,6 +60,7 @@ type HttpClientConfig struct {
 type HttpService struct {
 	app   *iris.Application
 	party iris.Party
+	cfg   HttpConfig
 }
 
 func DefaultHttpClientConfig() *HttpClientConfig {
@@ -81,6 +88,13 @@ func CreateHttpClient(cfg *HttpClientConfig) *resty.Client {
 }
 
 func (s *HttpService) SetOptions() {
+	tag := DefaultAPITag
+
+	if appTag != "" {
+		tag = appTag
+	} else if s.cfg.Tag != "" {
+		tag = s.cfg.Tag
+	}
 
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
@@ -89,16 +103,29 @@ func (s *HttpService) SetOptions() {
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"},
 	})
 
-	s.party = s.app.Party(BaseApiRoute, crs).AllowMethods(iris.MethodOptions)
+	s.party = s.app.Party(tag, crs).AllowMethods(iris.MethodOptions)
 }
 
 func (s *HttpService) Init(app Sptty) error {
-	cfg := HttpConfig{}
-	if err := app.GetConfig(s.ServiceName(), &cfg); err != nil {
+	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}
 
-	return s.app.Run(iris.Addr(cfg.Addr), iris.WithoutInterruptHandler)
+	s.AddRoute("GET", "/healthz", func(ctx iris.Context) {
+		ctx.StatusCode(iris.StatusOK)
+	})
+
+	s.AddRoute("GET", "/apidoc", func(ctx iris.Context) {
+		ctx.Header("content-type", "application/json")
+		f, err := ioutil.ReadFile(s.cfg.ApiDoc)
+		if err != nil {
+			ctx.StatusCode(iris.StatusNoContent)
+			return
+		}
+		_, _ = ctx.Write(f)
+	})
+
+	return s.app.Run(iris.Addr(s.cfg.Addr), iris.WithoutInterruptHandler)
 }
 
 func (s *HttpService) Release() {
@@ -115,4 +142,32 @@ func (s *HttpService) AddRoute(method string, route string, handler context.Hand
 
 func (s *HttpService) ServiceName() string {
 	return HttpServiceName
+}
+
+func SimpleResponse(ctx iris.Context, code int, body interface{}, headers map[string]string) error {
+	ctx.StatusCode(code)
+
+	if headers == nil {
+		ctx.ResponseWriter().Header().Add("content-type", "application/json")
+	} else {
+		for k, v := range headers {
+			ctx.ResponseWriter().Header().Add(k, v)
+		}
+	}
+
+	if body == nil {
+		return nil
+	}
+
+	data, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+
+	_, err = ctx.Write(data)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

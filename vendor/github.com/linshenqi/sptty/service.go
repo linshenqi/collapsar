@@ -3,12 +3,18 @@ package sptty
 import (
 	"errors"
 	"fmt"
+
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"gopkg.in/yaml.v2"
 )
 
 var appService *AppService = nil
+var appTag string = ""
+
+func SetTag(tag string) {
+	appTag = tag
+}
 
 func GetApp() *AppService {
 	if appService == nil {
@@ -20,7 +26,7 @@ func GetApp() *AppService {
 			config:   &ConfigService{},
 			log:      &LogService{},
 			i18n:     &I18NService{},
-			services: map[string]Service{},
+			services: Services{},
 			configs: map[string]Config{
 				HttpServiceName:  &HttpConfig{},
 				ModelServiceName: &ModelConfig{},
@@ -46,7 +52,7 @@ func I18NValue(name string, lang string) string {
 }
 
 type AppService struct {
-	services map[string]Service
+	services Services
 	configs  map[string]Config
 	http     *HttpService
 	model    *ModelService
@@ -111,9 +117,7 @@ func (s *AppService) Sptting() {
 }
 
 func (s *AppService) AddServices(services Services) {
-	for k, v := range services {
-		s.services[v.ServiceName()] = services[k]
-	}
+	s.services = services
 }
 
 func (s *AppService) AddConfigs(configs Configs) {
@@ -171,5 +175,29 @@ func (s *AppService) Model() Service {
 }
 
 func (s *AppService) GetService(name string) Service {
-	return s.services[name]
+	for k, v := range s.services {
+		if v.ServiceName() == name {
+			return s.services[k]
+		}
+	}
+
+	return nil
+}
+
+type BaseService struct {
+	Service
+}
+
+func (s *BaseService) Init(app Sptty) error {
+	return nil
+}
+
+func (s *BaseService) Release() {}
+
+func (s *BaseService) Enable() bool {
+	return true
+}
+
+func (s *BaseService) ServiceName() string {
+	return ""
 }

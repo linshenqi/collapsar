@@ -1,9 +1,10 @@
 package sptty
 
 import (
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -18,7 +19,9 @@ type ConfigService struct {
 func (s *ConfigService) Init(app Sptty) error {
 
 	f, err := os.Open(s.confPath)
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	if err != nil {
 		return err
@@ -51,4 +54,20 @@ func (s *ConfigService) SetConfPath(conf string) {
 
 func (s *ConfigService) ServiceName() string {
 	return ConfigServiceName
+}
+
+type BaseConfig struct {
+	Config
+}
+
+func (s *BaseConfig) ConfigName() string {
+	return ""
+}
+
+func (s *BaseConfig) Validate() error {
+	return nil
+}
+
+func (s *BaseConfig) Default() interface{} {
+	return &BaseConfig{}
 }
