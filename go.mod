@@ -3,6 +3,8 @@ module github.com/linshenqi/collapsar
 go 1.13
 
 require (
+	github.com/jinzhu/gorm v1.9.12
+	github.com/kataras/iris v0.0.2
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/lib/pq v1.3.0 // indirect
 	github.com/linshenqi/sptty v0.0.0-20201206020230-1a4b50dc20e9

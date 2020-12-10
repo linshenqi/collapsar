@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+
 	"github.com/linshenqi/collapsar/src/services/oss"
+	"github.com/linshenqi/collapsar/src/services/resource"
 	"github.com/linshenqi/sptty"
 )
 
@@ -15,6 +17,7 @@ func main() {
 
 	services := sptty.Services{
 		&oss.Service{},
+		&resource.Service{},
 	}
 
 	configs := sptty.Configs{

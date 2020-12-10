@@ -8,6 +8,11 @@ const (
 	Qiniu = "qiniu"
 )
 
+type IOssService interface {
+	Upload(endpoint string, key string, data []byte) error
+	Delete(endpoint string, key string) error
+}
+
 type Endpoint struct {
 	Provider  string `yaml:"provider"`
 	AppKey    string `yaml:"app_key"`
