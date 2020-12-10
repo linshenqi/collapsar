@@ -28,6 +28,8 @@ func (s *Service) ServiceName() string {
 }
 
 func (s *Service) Init(app sptty.Sptty) error {
+	app.AddModel(&base.Resource{})
+
 	s.db = app.Model().(*sptty.ModelService).DB()
 	if s.db == nil {
 		return fmt.Errorf("Model Service Is Required")
