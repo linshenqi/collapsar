@@ -10,7 +10,7 @@ import (
 
 type IResourceService interface {
 	CreateResources(resources []*Resource) error
-	RemoveResourcesByIDs(ids []string)
+	RemoveResourcesByIDs(ids []string) error
 	GetResourcesByIDs(ids []string) ([]*Resource, error)
 	GetResourcesByObjectID(objectID string) ([]Resource, error)
 	SetOssEndpoint(endpoint string)
