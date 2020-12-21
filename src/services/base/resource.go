@@ -13,6 +13,7 @@ type IResourceService interface {
 	RemoveResourcesByIDs(ids []string)
 	GetResourcesByIDs(ids []string) ([]*Resource, error)
 	GetResourcesByObjectID(objectID string) ([]Resource, error)
+	SetOssEndpoint(endpoint string)
 }
 
 type Resource struct {
