@@ -27,7 +27,7 @@ func (s *Service) ServiceName() string {
 	return ServiceName
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	app.AddModel(&base.Resource{})
 
 	s.db = app.Model().(*sptty.ModelService).DB()
@@ -35,7 +35,7 @@ func (s *Service) Init(app sptty.Sptty) error {
 		return fmt.Errorf("Model Service Is Required")
 	}
 
-	s.oss = app.GetService(oss.ServiceName).(*oss.Service)
+	s.oss = app.GetService(oss.ServiceName).(base.IOssService)
 	if s.oss == nil {
 		return fmt.Errorf("Oss Service Is Required")
 	}

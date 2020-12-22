@@ -13,11 +13,14 @@ const (
 )
 
 type Service struct {
+	sptty.BaseService
+	base.IOssService
+
 	cfg       Config
 	providers map[string]base.IOss
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}
@@ -26,14 +29,6 @@ func (s *Service) Init(app sptty.Sptty) error {
 	s.initProviders()
 
 	return nil
-}
-
-func (s *Service) Release() {
-
-}
-
-func (s *Service) Enable() bool {
-	return true
 }
 
 func (s *Service) ServiceName() string {
