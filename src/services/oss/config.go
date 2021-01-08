@@ -7,7 +7,7 @@ type Config struct {
 }
 
 func (s *Config) ConfigName() string {
-	return ServiceName
+	return base.ServiceOss
 }
 
 func (s *Config) Validate() error {

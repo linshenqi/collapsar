@@ -8,10 +8,6 @@ import (
 	"github.com/linshenqi/sptty"
 )
 
-const (
-	ServiceName = "oss"
-)
-
 type Service struct {
 	sptty.BaseService
 	base.IOssService
@@ -32,7 +28,7 @@ func (s *Service) Init(app sptty.ISptty) error {
 }
 
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceOss
 }
 
 func (s *Service) initProviders() {

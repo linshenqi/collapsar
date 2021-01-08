@@ -5,12 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/linshenqi/collapsar/src/services/base"
-	"github.com/linshenqi/collapsar/src/services/oss"
 	"github.com/linshenqi/sptty"
-)
-
-const (
-	ServiceName = "resource"
 )
 
 type Service struct {
@@ -24,7 +19,7 @@ type Service struct {
 }
 
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceResource
 }
 
 func (s *Service) Init(app sptty.ISptty) error {
@@ -35,7 +30,7 @@ func (s *Service) Init(app sptty.ISptty) error {
 		return fmt.Errorf("Model Service Is Required")
 	}
 
-	s.oss = app.GetService(oss.ServiceName).(base.IOssService)
+	s.oss = app.GetService(base.ServiceOss).(base.IOssService)
 	if s.oss == nil {
 		return fmt.Errorf("Oss Service Is Required")
 	}

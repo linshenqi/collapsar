@@ -5,7 +5,8 @@ import (
 )
 
 const (
-	Qiniu = "qiniu"
+	ServiceOss = "oss"
+	Qiniu      = "qiniu"
 )
 
 type IOssService interface {

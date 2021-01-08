@@ -8,6 +8,10 @@ import (
 	"github.com/linshenqi/sptty"
 )
 
+const (
+	ServiceResource = "resource"
+)
+
 type IResourceService interface {
 	CreateResources(resources []*Resource) error
 	RemoveResourcesByIDs(ids []string) error
