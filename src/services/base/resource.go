@@ -22,7 +22,7 @@ type IResourceService interface {
 }
 
 type Resource struct {
-	ID string `gorm:"primary_key,size:32" json:"id"`
+	sptty.SimpleModelBase
 
 	ObjectID string `gorm:"size:32" json:"-"`
 	Name     string `json:"name"`

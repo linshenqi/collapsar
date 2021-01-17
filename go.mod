@@ -13,7 +13,7 @@ require (
 	github.com/klauspost/compress v1.10.10 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/lib/pq v1.3.0 // indirect
-	github.com/linshenqi/sptty v0.0.0-20201222041804-d7e3403845f9
+	github.com/linshenqi/sptty v0.0.0-20201222153716-9b40d685214f
 	github.com/microcosm-cc/bluemonday v1.0.3 // indirect
 	github.com/qiniu/api.v7 v7.2.5+incompatible
 	github.com/qiniu/x v7.0.8+incompatible // indirect
