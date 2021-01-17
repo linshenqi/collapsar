@@ -18,6 +18,7 @@ type IResourceService interface {
 	GetResourcesByIDs(ids []string) ([]*Resource, error)
 	GetResourcesByObjectID(objectID string) ([]*Resource, error)
 	SetOssEndpoint(endpoint string)
+	GetResourceUrl() string
 }
 
 type Resource struct {

@@ -12,9 +12,9 @@ type Service struct {
 	sptty.BaseService
 	base.IResourceService
 
-	db  *gorm.DB
-	oss base.IOssService
-
+	db          *gorm.DB
+	oss         base.IOssService
+	cfg         Config
 	ossEndpoint string
 }
 
@@ -24,6 +24,10 @@ func (s *Service) ServiceName() string {
 
 func (s *Service) Init(app sptty.ISptty) error {
 	app.AddModel(&base.Resource{})
+
+	if err := app.GetConfig(base.ServiceResource, &s.cfg); err != nil {
+		return err
+	}
 
 	s.db = app.Model().(*sptty.ModelService).DB()
 	if s.db == nil {
@@ -109,4 +113,8 @@ func (s *Service) GetResourcesByObjectID(objectID string) ([]*base.Resource, err
 
 func (s *Service) SetOssEndpoint(endpoint string) {
 	s.ossEndpoint = endpoint
+}
+
+func (s *Service) GetResourceUrl() string {
+	return s.cfg.ResourceUrl
 }
