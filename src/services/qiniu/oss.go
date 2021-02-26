@@ -7,8 +7,8 @@ import (
 
 	"github.com/linshenqi/collapsar/src/services/base"
 	"github.com/linshenqi/sptty"
-	"github.com/qiniu/api.v7/auth/qbox"
-	"github.com/qiniu/api.v7/storage"
+	"github.com/qiniu/go-sdk/v7/auth/qbox"
+	"github.com/qiniu/go-sdk/v7/storage"
 )
 
 var Zones = map[string]storage.Zone{

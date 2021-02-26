@@ -15,8 +15,7 @@ require (
 	github.com/lib/pq v1.3.0 // indirect
 	github.com/linshenqi/sptty v0.0.0-20201222153716-9b40d685214f
 	github.com/microcosm-cc/bluemonday v1.0.3 // indirect
-	github.com/qiniu/api.v7 v7.2.5+incompatible
-	github.com/qiniu/x v7.0.8+incompatible // indirect
+	github.com/qiniu/go-sdk/v7 v7.9.1
 	github.com/stretchr/testify v1.6.1 // indirect
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
 	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
@@ -26,5 +25,4 @@ require (
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
-	qiniupkg.com/x v7.0.8+incompatible // indirect
 )
