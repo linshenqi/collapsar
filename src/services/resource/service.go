@@ -12,10 +12,9 @@ type Service struct {
 	sptty.BaseService
 	base.IResourceService
 
-	db          *gorm.DB
-	oss         base.IOssService
-	cfg         Config
-	ossEndpoint string
+	db  *gorm.DB
+	oss base.IOssService
+	cfg Config
 }
 
 func (s *Service) ServiceName() string {
@@ -59,7 +58,7 @@ func (s *Service) createResource(resource *base.Resource) error {
 		return err
 	}
 
-	if err := s.oss.Upload(s.ossEndpoint, resource.Name, resource.Data); err != nil {
+	if err := s.oss.Upload(s.cfg.OssEndpoint, resource.Name, resource.Data); err != nil {
 		return err
 	}
 
@@ -86,7 +85,7 @@ func (s *Service) RemoveResourcesByIDs(ids []string) error {
 }
 
 func (s *Service) removeResource(resource *base.Resource) error {
-	if err := s.oss.Delete(s.ossEndpoint, resource.Name); err != nil {
+	if err := s.oss.Delete(s.cfg.OssEndpoint, resource.Name); err != nil {
 		return err
 	}
 
@@ -111,8 +110,8 @@ func (s *Service) GetResourcesByObjectID(objectID string) ([]*base.Resource, err
 	return resources, nil
 }
 
+// decrepit
 func (s *Service) SetOssEndpoint(endpoint string) {
-	s.ossEndpoint = endpoint
 }
 
 func (s *Service) GetResourceUrl() string {
