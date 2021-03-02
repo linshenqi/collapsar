@@ -115,5 +115,5 @@ func (s *Service) SetOssEndpoint(endpoint string) {
 }
 
 func (s *Service) GetResourceUrl() string {
-	return s.cfg.ResourceUrl
+	return s.cfg.Url
 }

@@ -7,7 +7,7 @@ import (
 
 type Config struct {
 	sptty.BaseConfig
-	ResourceUrl string `yaml:"resource_url"`
+	Url         string `yaml:"url"`
 	OssEndpoint string `yaml:"oss_endpoint"`
 }
 
